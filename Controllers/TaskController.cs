@@ -12,7 +12,7 @@ namespace ToDoList.Controllers
     {
         private static List<Models.Task> _Tasks;
 
-        // GET: TaskController
+        // GET: Task
         [HttpGet]
         public ActionResult Tasks()
         {
@@ -21,14 +21,14 @@ namespace ToDoList.Controllers
             return View(_Tasks);
         }
 
-        // GET: TaskController/Create
+        // GET: Task/Create
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TaskController/Create
+        // POST: Task/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Models.Task TaskObj)
@@ -50,7 +50,7 @@ namespace ToDoList.Controllers
             }
         }
 
-        // GET: TaskController/Details/5
+        // GET: Task/Details/5
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -58,19 +58,18 @@ namespace ToDoList.Controllers
         }
 
 
-        // GET: TaskController/Edit/5
+        // GET: Task/Edit/5
         [HttpGet]
         public ActionResult Edit(int id)
         {
             return View(_Tasks.Find(x => x.Id == id));
         }
 
-        // POST: TaskController/Edit/5
+        // POST: Task/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Models.Task TaskObj)
         {
-            //int index = 0;
             try
             {
                 Models.Task ViewModel = _Tasks.FirstOrDefault(x => x.Id == TaskObj.Id);
@@ -85,20 +84,12 @@ namespace ToDoList.Controllers
             }
         }
 
-        // GET: TaskController/Delete/5
-        [HttpGet]
+        // POST: Task/Delete/5
+        [HttpPost]
         public ActionResult Delete(int id)
         {
-            return View(_Tasks.Find(x => x.Id == id));
-        }
-
-        // POST: TaskController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Models.Task TaskObj)
-        {
-            _Tasks.Remove(_Tasks.Find(x => x.Id == TaskObj.Id));
-            return View(nameof(Tasks), _Tasks);
+            _Tasks.Remove(_Tasks.Find(x => x.Id == id));
+            return Ok(new { message = "Ok" });
         }
 
         private void InitializeObjects()
