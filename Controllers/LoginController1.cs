@@ -19,16 +19,16 @@ namespace ToDoList.Controllers
         [HttpGet]
         public IActionResult LogOut()
         {
-            return RedirectToAction("Login", "Login");
+            return View(nameof(Login));
         }
 
         [HttpPost]
         public IActionResult ValidateUser(User user)
         {
-            if(ModelState.IsValid)
-                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+                return View("../Home/Index");
 
-            return View("Login", user);
+            return View(nameof(Login), user);
         }
     }
 }

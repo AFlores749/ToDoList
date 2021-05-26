@@ -40,7 +40,7 @@ namespace ToDoList.Controllers
                     Description = collection["Description"],
                     Attendant = collection["Attendant"]
                 });
-                return RedirectToAction(nameof(Tasks));
+                return View(nameof(Tasks));
             }
             catch
             {
@@ -75,11 +75,11 @@ namespace ToDoList.Controllers
                 _Tasks[index].Title = collection["Title"];
                 _Tasks[index].Description = collection["Description"];
                 _Tasks[index].Attendant = collection["Attendant"];
-                return RedirectToAction(nameof(Tasks));
+                return View(nameof(Tasks));
             }
             catch
             {
-                return RedirectToAction(nameof(Tasks));
+                return View(nameof(Tasks));
             }
         }
 
@@ -100,11 +100,11 @@ namespace ToDoList.Controllers
                 int id = int.Parse(collection["Id"]);
                 _Tasks.Remove(_Tasks.Find(x => x.Id == id));
 
-                return RedirectToAction(nameof(Tasks));
+                return View(nameof(Tasks));
             }
             catch
             {
-                return RedirectToAction(nameof(Tasks));
+                return View(nameof(Tasks));
             }
         }
 
