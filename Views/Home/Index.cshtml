@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_Layout";
     ViewData["Title"] = "Home";
+    string UserName = (ViewData["User"] == null) ? "Stranger" : ViewData["User"].ToString();
 }
 
-<h1>Hello Stranger!</h1>
+<h1>Hello @ViewData["User"]</h1>

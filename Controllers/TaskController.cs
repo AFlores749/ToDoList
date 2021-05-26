@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoList.Models;
 
 namespace ToDoList.Controllers
 {
@@ -15,7 +16,8 @@ namespace ToDoList.Controllers
         [HttpGet]
         public ActionResult Tasks()
         {
-            InitializeList();
+            InitializeObjects();
+            // Obtener el usuario y desplegar botones conforme a permisos entre otras validaciones
             return View(_Tasks);
         }
 
@@ -29,18 +31,18 @@ namespace ToDoList.Controllers
         // POST: TaskController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Models.Task TaskObj)
         {
             try
             {
                 _Tasks.Add(new Models.Task()
                 {
                     Id = (_Tasks.Count == 0) ? 1 : _Tasks.Last().Id+1,
-                    Title = collection["Title"],
-                    Description = collection["Description"],
-                    Attendant = collection["Attendant"]
+                    Title = TaskObj.Title,
+                    Description = TaskObj.Description,
+                    Attendant = TaskObj.Attendant
                 });
-                return View(nameof(Tasks));
+                return RedirectToAction("Tasks");
             }
             catch
             {
@@ -66,20 +68,20 @@ namespace ToDoList.Controllers
         // POST: TaskController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(IFormCollection collection)
+        public ActionResult Edit(Models.Task TaskObj)
         {
-            int index = 0;
+            //int index = 0;
             try
             {
-                index = int.Parse(collection["Id"]) - 1;
-                _Tasks[index].Title = collection["Title"];
-                _Tasks[index].Description = collection["Description"];
-                _Tasks[index].Attendant = collection["Attendant"];
-                return View(nameof(Tasks));
+                Models.Task ViewModel = _Tasks.FirstOrDefault(x => x.Id == TaskObj.Id);
+                ViewModel.Title = TaskObj.Title;
+                ViewModel.Description = TaskObj.Description;
+                ViewModel.Attendant = TaskObj.Attendant;
+                return View(nameof(Tasks), _Tasks);
             }
             catch
             {
-                return View(nameof(Tasks));
+                return View(nameof(Tasks), _Tasks);
             }
         }
 
@@ -93,22 +95,13 @@ namespace ToDoList.Controllers
         // POST: TaskController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(IFormCollection collection)
+        public ActionResult Delete(Models.Task TaskObj)
         {
-            try
-            {
-                int id = int.Parse(collection["Id"]);
-                _Tasks.Remove(_Tasks.Find(x => x.Id == id));
-
-                return View(nameof(Tasks));
-            }
-            catch
-            {
-                return View(nameof(Tasks));
-            }
+            _Tasks.Remove(_Tasks.Find(x => x.Id == TaskObj.Id));
+            return View(nameof(Tasks), _Tasks);
         }
 
-        private void InitializeList()
+        private void InitializeObjects()
         {
             if (_Tasks == null)
             {

@@ -16,19 +16,22 @@ namespace ToDoList.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Login(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewData["User"] = user.Email.Split("@")[0];
+                return View("../Home/Index");
+            }
+
+            return View();
+        }
+
         [HttpGet]
         public IActionResult LogOut()
         {
             return View(nameof(Login));
-        }
-
-        [HttpPost]
-        public IActionResult ValidateUser(User user)
-        {
-            if (ModelState.IsValid)
-                return View("../Home/Index");
-
-            return View(nameof(Login), user);
         }
     }
 }

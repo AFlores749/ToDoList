@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ToDoList.Models.Task>
+﻿@model List<ToDoList.Models.Task>
 
 @{
     ViewData["Title"] = "Tasks";
@@ -14,16 +14,16 @@
     <thead class="thead-light">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Title            
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Attendant)
+                Attendant
             </th>
             <th>Actions</th>
         </tr>
