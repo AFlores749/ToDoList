@@ -12,6 +12,7 @@ namespace ToDoList.Controllers
         private static List<Models.Task> _Tasks;
 
         // GET: TaskController
+        [HttpGet]
         public ActionResult Tasks()
         {
             InitializeList();
@@ -19,6 +20,7 @@ namespace ToDoList.Controllers
         }
 
         // GET: TaskController/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +49,7 @@ namespace ToDoList.Controllers
         }
 
         // GET: TaskController/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
             return View(_Tasks[id-1]);
@@ -54,6 +57,7 @@ namespace ToDoList.Controllers
 
 
         // GET: TaskController/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             return View(_Tasks[id-1]);
@@ -80,6 +84,7 @@ namespace ToDoList.Controllers
         }
 
         // GET: TaskController/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             return View(_Tasks[id-1]);

@@ -24,10 +24,5 @@ namespace ToDoList.Models
             this.Description = Description;
             this.Attendant = Attendant;
         }
-
-        public static implicit operator System.Threading.Tasks.Task(Task v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

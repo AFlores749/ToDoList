@@ -10,22 +10,25 @@ namespace ToDoList.Controllers
 {
     public class LoginController : Controller
     {
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult LogOut()
         {
             return RedirectToAction("Login", "Login");
         }
 
-        public IActionResult ValidateUser([Bind("Email, Password")]User user)
+        [HttpPost]
+        public IActionResult ValidateUser(User user)
         {
             if(ModelState.IsValid)
                 return RedirectToAction("Index", "Home");
 
-            return RedirectToAction("Login", "Login");
+            return View("Login", user);
         }
     }
 }
