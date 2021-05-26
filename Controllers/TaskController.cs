@@ -52,7 +52,7 @@ namespace ToDoList.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            return View(_Tasks[id-1]);
+            return View(_Tasks.Find(x => x.Id == id));
         }
 
 
@@ -60,7 +60,7 @@ namespace ToDoList.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View(_Tasks[id-1]);
+            return View(_Tasks.Find(x => x.Id == id));
         }
 
         // POST: TaskController/Edit/5
@@ -87,7 +87,7 @@ namespace ToDoList.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View(_Tasks[id-1]);
+            return View(_Tasks.Find(x => x.Id == id));
         }
 
         // POST: TaskController/Delete/5
