@@ -12,15 +12,19 @@ $(function () {
     });
 
     $('#ModalDelete').click(function () {
-        fetch(url + $.param({ id: IdOpenModal }), {
-            method: 'POST'
-        }).then((response) => {
-            $('#tasks-table > tbody > tr[data-id=' + IdOpenModal + ']').remove();
-            if ($('#tasks-table > tbody > tr').length == 0) {
-                $('#tasks-table').append('<tr><td colspan="5" class="text-center">No Tasks Saved</td></tr');
-            }
-            $('#deleteModal').modal('hide');
-        });
+        if (self.fetch) {
+            fetch(url + $.param({ id: IdOpenModal }), {
+                method: 'POST'
+            }).then((response) => {
+                $('#tasks-table > tbody > tr[data-id=' + IdOpenModal + ']').remove();
+                if ($('#tasks-table > tbody > tr').length == 0) {
+                    $('#tasks-table').append('<tr><td colspan="5" class="text-center">No Tasks Saved</td></tr');
+                }
+                $('#deleteModal').modal('hide');
+            });
+        } else {
+            //REQUEST 
+        }
     });
 
 });
